@@ -1,8 +1,8 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <TodoHeader />
-      <TodoList :todos="todos" :deleteTodo="deleteTodo"/>
+      <TodoHeader :addTodo="addTodo"/>
+      <TodoList :todos="todos" :deleteTodo="deleteTodo" :updateChecked="updateChecked"/>
       <TodoFooter />
     </div>
   </div>
@@ -29,8 +29,20 @@ export default {
     }
   },
   methods: {
+    // 添加todo
+    addTodo(todo) {
+      this.todos.unshift(todo)
+    },
     deleteTodo(index){
       this.todos.splice(index,1)
+    },
+    // 更新选中状态
+    updateChecked(id) {
+      this.todos.forEach(e => {
+        if (e.id === id) {
+          e.done = !e.done
+        }
+      })
     }
   }
 }

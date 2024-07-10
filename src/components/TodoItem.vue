@@ -2,7 +2,7 @@
     <div>
         <li :style="{background:bgColor}" @mouseenter="handleEnter(false)">
             <label>
-                <input type="checkbox" :checked="todo.done"/>
+                <input type="checkbox" :checked="todo.done" @change="change(todo.id)"/>
                 <span>{{ todo.title }}</span>
             </label>
             <button class="btn btn-danger" v-show="isShow" @click="deleteItem()">删除</button>
@@ -28,6 +28,9 @@
             },
             index: {
                 type: Number
+            },
+            updateChecked:{
+                type:Function
             }
         },
         methods: {
@@ -42,7 +45,9 @@
                     this.isShow=true;
                     this.bgColor='#aaa';
                 }
-                
+            },
+            change(id){
+                this.updateChecked(id);
             }
         }
     }
