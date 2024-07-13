@@ -23,11 +23,13 @@ export default {
             if(!title){
                 alert("请输入内容")
                 return
-            };
+            }
             const todo={
                 id: nanoid(),
                 title,
-                done:false}
+                done:false};
+            this.addTodo(todo);
+            this.title='';
         }
     }
 }
