@@ -1,51 +1,68 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <TodoHeader :addTodo="addTodo"/>
-      <TodoList :todos="todos" :deleteTodo="deleteTodo" :updateChecked="updateChecked"/>
-      <TodoFooter />
+      <TodoHeader :addTodo="addTodo" />
+      <TodoList
+        :todos="todos"
+        :deleteTodo="deleteTodo"
+        :updateChecked="updateChecked"
+      />
+      <TodoFooter
+        :todos="todos"
+        :deleteCompleteTodos="deleteCompleteTodos"
+        :selectAllTodos="selectAllTodos"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import TodoHeader from './components/TodoHeader.vue'
-import TodoList from './components/TodoList.vue'
-import TodoFooter from './components/TodoFooter.vue'
+import TodoHeader from "./components/TodoHeader.vue";
+import TodoList from "./components/TodoList.vue";
+import TodoFooter from "./components/TodoFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TodoHeader,
     TodoList,
-    TodoFooter
+    TodoFooter,
   },
   data() {
     return {
-      todos:[
-        {id:'001',title:'吃饭',done:true},
-        {id:'002',title:'睡觉',done:false},
-        {id:'003',title:'打豆豆',done:true}]
-    }
+      todos: [
+        { id: "001", title: "吃饭", done: true },
+        { id: "002", title: "睡觉", done: false },
+        { id: "003", title: "打豆豆", done: true },
+      ],
+    };
   },
   methods: {
     // 添加todo
     addTodo(todo) {
-      this.todos.unshift(todo)
+      this.todos.unshift(todo);
     },
-    deleteTodo(index){
-      this.todos.splice(index,1)
+    deleteTodo(index) {
+      this.todos.splice(index, 1);
     },
     // 更新选中状态
     updateChecked(id) {
-      this.todos.forEach(e => {
+      this.todos.forEach((e) => {
         if (e.id === id) {
-          e.done = !e.done
+          e.done = !e.done;
         }
-      })
-    }
-  }
-}
+      });
+    },
+    deleteCompleteTodos() {
+      this.todos = this.todos.filter((e) => !e.done);
+    },
+    selectAllTodos(check) {
+      this.todos.forEach((e) => {
+        e.done = check;
+      });
+    },
+  },
+};
 </script>
 
 <style>

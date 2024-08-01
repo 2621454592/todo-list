@@ -2,8 +2,8 @@
   <div>
     <li
       :style="{ background: bgColor }"
-      @mouseenter="handleEnter(false)"
-      @mouseleave="handleEnter(true)"
+      @mouseenter="handleEnter(true)"
+      @mouseleave="handleEnter(false)"
     >
       <label>
         <input type="checkbox" :checked="todo.done" @change="change(todo.id)" />
@@ -50,6 +50,9 @@ export default {
       if (isEnter) {
         this.isShow = true;
         this.bgColor = "#aaa";
+      } else {
+        this.isShow = false;
+        this.bgColor = "white";
       }
     },
     change(id) {
