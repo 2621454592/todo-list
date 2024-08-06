@@ -1,10 +1,14 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox" />
+      <input type="checkbox" v-model="isAllcheck" />
     </label>
-    <span> <span>已完成0</span> / 全部{{ todos.length }} </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <span>
+      <span>已完成{{ completeSize }}</span> / 全部{{ todos.length }}
+    </span>
+    <button class="btn btn-danger" @click="deleteCompleteTodos">
+      清除已完成任务
+    </button>
   </div>
 </template>
 
@@ -16,6 +20,20 @@ export default {
     deleteCompleteTodos: Function,
     selectAllTodos: Function,
   },
+  computed: {
+    completeSize() {
+      return this.todos.reduce((item, todo) => item + (todo.done ? 1 : 0), 0);
+    },
+    isAllcheck: {
+      get() {
+        return this.completeSize === this.todos.length && this.completeSize > 0;
+      },
+      set(value) {
+        this.selectAllTodos(value);
+      },
+    },
+  },
+  methods: {},
 };
 </script>
 
